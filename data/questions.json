@@ -1,0 +1,37 @@
+[
+  {
+    "id": "Q1",
+    "text": "What is Java?",
+    "subject": "Programming",
+    "answer": "A language",
+    "difficulty": 2
+  },
+  {
+    "id": "Q2",
+    "text": "What is HashMap?",
+    "subject": "Collections",
+    "answer": "Key-value map",
+    "difficulty": 3
+  },
+  {
+    "id": "Q3",
+    "text": "What is OOP?",
+    "subject": "Programming",
+    "answer": "Object Oriented",
+    "difficulty": 2
+  },
+  {
+    "id": "Q4",
+    "text": "What is a Set?",
+    "subject": "Collections",
+    "answer": "No duplicates",
+    "difficulty": 1
+  },
+  {
+    "id": "Q5",
+    "text": "What is a Comparator?",
+    "subject": "Generics",
+    "answer": "Sorting helper",
+    "difficulty": 4
+  }
+]
