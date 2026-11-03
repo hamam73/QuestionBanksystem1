@@ -1,7 +1,6 @@
 package com.portfolioproject.app;
 
 import java.io.IOException;
-import java.nio.file.Path;
 
 import com.portflioproject.service.SearchService;
 import com.portflioproject.service.SortService;
@@ -16,10 +15,11 @@ import com.portfolioproject.repository.ResultRepository;
 import com.portfolioproject.repository.StudentRepository;
 
 public class Main {
-    private static final Path DATA_DIR       = Path.of("data");
-    private static final Path QUESTIONS_FILE = DATA_DIR.resolve("questions.json");
-    private static final Path STUDENTS_FILE  = DATA_DIR.resolve("students.json");
-    private static final Path RESULTS_FILE   = DATA_DIR.resolve("results.json");
+    // Changed from Path to String for Student 74 (File I/O)
+    private static final String DATA_DIR       = "data";
+    private static final String QUESTIONS_FILE = DATA_DIR + "/questions.json";
+    private static final String STUDENTS_FILE  = DATA_DIR + "/students.json";
+    private static final String RESULTS_FILE   = DATA_DIR + "/results.json";
 
     public static void main(String[] args) throws IOException {
         QuestionRepository questionRepo = new QuestionRepository();
@@ -45,11 +45,13 @@ public class Main {
         System.out.println("\n=== Students sorted naturally (By Name) ===");
         SortService.sortNatural(studentRepo.findAll()).forEach(System.out::println);
 
-        JsonStorage.save(QUESTIONS_FILE, questionRepo.findAll(), Question.class);
-        JsonStorage.save(STUDENTS_FILE,  studentRepo.findAll(),  Student.class);
-        JsonStorage.save(RESULTS_FILE,   resultRepo.findAll(),   Result.class);
-        System.out.println("\nSaved to: " + DATA_DIR.toAbsolutePath());
+        // --- Student 74's Task: Save using Jackson ---
+        JsonStorage.save(QUESTIONS_FILE, questionRepo.findAll());
+        JsonStorage.save(STUDENTS_FILE,  studentRepo.findAll());
+        JsonStorage.save(RESULTS_FILE,   resultRepo.findAll());
+        System.out.println("\nSaved to: " + new java.io.File(DATA_DIR).getAbsolutePath());
 
+        // --- Student 74's Task: Load and Verify Data Retrieval ---
         QuestionRepository loaded = new QuestionRepository();
         JsonStorage.load(QUESTIONS_FILE, Question.class).forEach(loaded::save);
         System.out.println("Loaded " + loaded.count() + " questions from JSON.");

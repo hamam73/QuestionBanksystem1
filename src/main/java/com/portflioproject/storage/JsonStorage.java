@@ -1,33 +1,39 @@
 package com.portflioproject.storage;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
+import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public final class JsonStorage {
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    // ObjectMapper is the main class in Jackson for JSON conversion
+    // enable(INDENT_OUTPUT) formats the JSON to be human-readable
+    private static final ObjectMapper MAPPER = new ObjectMapper()
+            .enable(SerializationFeature.INDENT_OUTPUT);
 
     private JsonStorage() {}
 
-    public static <T> void save(Path file, List<T> items, Class<T> clazz) throws IOException {
-        Type listType = TypeToken.getParameterized(List.class, clazz).getType();
-        Path parent = file.toAbsolutePath().getParent();
-        if (parent != null) Files.createDirectories(parent);
-        Files.writeString(file, GSON.toJson(items, listType));
+    // Save a list to a JSON file using File I/O
+    public static <T> void save(String filePath, List<T> items) throws IOException {
+        File file = new File(filePath);
+        // Create the directory if it doesn't exist (File I/O)
+        if (file.getParentFile() != null && !file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+        // Jackson converts the list to JSON and writes it to the file
+        MAPPER.writeValue(file, items);
     }
 
-    public static <T> List<T> load(Path file, Class<T> clazz) throws IOException {
-        if (!Files.exists(file)) return new ArrayList<>();
-        Type listType = TypeToken.getParameterized(List.class, clazz).getType();
-        String json = Files.readString(file);
-        List<T> list = GSON.fromJson(json, listType);
-        return list != null ? list : new ArrayList<>();
+    // Load a list from a JSON file (Data Retrieval)
+    public static <T> List<T> load(String filePath, Class<T> clazz) throws IOException {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            return new ArrayList<>();
+        }
+        // Jackson reads the file and converts it back to a List of objects
+        return MAPPER.readValue(file, MAPPER.getTypeFactory().constructCollectionType(List.class, clazz));
     }
 }

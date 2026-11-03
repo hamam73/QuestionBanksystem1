@@ -1,32 +1,26 @@
-[
-  {
-    "id": "R1",
-    "studentId": "S1",
-    "questionId": "Q1",
-    "score": 80
-  },
-  {
-    "id": "R2",
-    "studentId": "S2",
-    "questionId": "Q2",
-    "score": 95
-  },
-  {
-    "id": "R3",
-    "studentId": "S1",
-    "questionId": "Q3",
-    "score": 60
-  },
-  {
-    "id": "R4",
-    "studentId": "S3",
-    "questionId": "Q4",
-    "score": 70
-  },
-  {
-    "id": "R5",
-    "studentId": "S2",
-    "questionId": "Q5",
-    "score": 88
-  }
-]
+[ {
+  "id" : "R1",
+  "studentId" : "S1",
+  "questionId" : "Q1",
+  "score" : 80
+}, {
+  "id" : "R2",
+  "studentId" : "S2",
+  "questionId" : "Q2",
+  "score" : 95
+}, {
+  "id" : "R3",
+  "studentId" : "S1",
+  "questionId" : "Q3",
+  "score" : 60
+}, {
+  "id" : "R4",
+  "studentId" : "S3",
+  "questionId" : "Q4",
+  "score" : 70
+}, {
+  "id" : "R5",
+  "studentId" : "S2",
+  "questionId" : "Q5",
+  "score" : 88
+} ]
